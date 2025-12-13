@@ -2,6 +2,7 @@
   "name": "reynard-public-website",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
@@ -10,7 +11,7 @@
     "format": "biome format --write"
   },
   "dependencies": {
-    "next": "^15.5.7",
+    "next": "15.5.9",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },

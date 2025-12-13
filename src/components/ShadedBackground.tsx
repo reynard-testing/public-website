@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ShadedBackgroundRenderer } from "./render";
 
 /** Base render method */
-const getTimeInSeconds = () => Date.now() / 1000.0;
+const getTimeInSeconds = () => Date.now() / 1000;
 
 type ShadedBackgroundProps = {};
 const ShadedBackground = (props: ShadedBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [ready, setReady] = useState(false);
 
   // Main render loop
   useEffect(() => {
@@ -17,20 +18,21 @@ const ShadedBackground = (props: ShadedBackgroundProps) => {
       return;
     }
 
+    // Initialise WebGL renderer and start render loop
     const renderer = new ShadedBackgroundRenderer(canvas);
     renderer.init();
+    setReady(true);
 
     let animationFrameId: number;
-    const startTime = getTimeInSeconds();
-    let lastFrame = startTime;
+    let lastFrameTime = getTimeInSeconds();
 
     const render = () => {
       const time = getTimeInSeconds();
-      const delta = time - lastFrame;
-      lastFrame = time;
+      const delta = time - lastFrameTime;
+      lastFrameTime = time;
 
       renderer.render(delta);
-      animationFrameId = window.requestAnimationFrame(render);
+      animationFrameId = requestAnimationFrame(render);
     };
 
     const onResize = () => {
@@ -39,30 +41,22 @@ const ShadedBackground = (props: ShadedBackgroundProps) => {
       renderer.onResize();
     };
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "d" || event.key === "D") {
-        const debugData = {
-          renderer,
-        };
-
-        console.log("Debug Data:", debugData);
-      }
-    };
-
     onResize();
     render();
-    window.addEventListener("resize", onResize);
-    window.addEventListener("keydown", handleKeyDown);
+    addEventListener("resize", onResize);
 
     return () => {
-      window.cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", onResize);
-      window.removeEventListener("keydown", handleKeyDown);
+      cancelAnimationFrame(animationFrameId);
+      removeEventListener("resize", onResize);
     };
   }, []);
 
   return (
-    <canvas ref={canvasRef} className="w-full max-w-full h-full" {...props} />
+    <canvas
+      ref={canvasRef}
+      className={`w-full max-w-full h-full transition-opacity duration-1500 ${ready ? "opacity-100" : "opacity-0"}`}
+      {...props}
+    />
   );
 };
 

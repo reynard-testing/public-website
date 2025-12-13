@@ -132,11 +132,11 @@ export class ShadedBackgroundRenderer {
     );
   }
 
-  render(delta: number) {
+  render(deltaSeconds: number) {
     // Animate point positions
     this.points.forEach((p) => {
       // rotate each point around the center
-      const angle = ANIMATION_SPEED * delta; // rotation speed
+      const angle = ANIMATION_SPEED * deltaSeconds; // rotation speed
       const cosAngle = Math.cos(angle);
       const sinAngle = Math.sin(angle);
       const x = p.x - 0.5;

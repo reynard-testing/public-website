@@ -1,5 +1,4 @@
-
-precision highp float;
+precision mediump float;
 
 // Screen resolution for normalization
 uniform vec2 u_resolution;
@@ -19,22 +18,20 @@ void main() {
     // Normalize the fragment coordinate to a 0-1 range
     vec2 normalizedFragCoord = gl_FragCoord.xy / u_resolution;
 
-    vec2 squareFagCoord = vec2(
+    // We want to map to a square aspect ratio
+    // 0-1 in y is kept, but the x is adjusted based on aspect ratio
+    // So, if the screen is wider, we compress x towards the center
+    vec2 squareFragCoord = vec2(
         (normalizedFragCoord.x - 0.5) * (u_resolution.x / u_resolution.y) + 0.5,
         normalizedFragCoord.y
     );
 
-    float maxLength = max(u_resolution.x / u_resolution.y, 1.0);
-    float maxLength2 = maxLength * maxLength;
+    vec3 colorSum = vec3(0.0, 0.0, 0.0);
+    float factorSum = 0.0;
 
-    // Initialize the final color to a dark blue/black
-    vec3 finalColor = vec3(0.0, 0.0, 0.0);
-    float sumFactor = 0.0;
-
-    // Iterate through each point and calculate its influence
     for (int i = 0; i < NUM_POINTS; i++) {
         // Calculate the distance vector from the current pixel to the point
-        vec2 distVector = squareFagCoord - u_points[i].position;
+        vec2 distVector = squareFragCoord - u_points[i].position;
         
         // Calculate the squared distance for performance
         float dist2 = dot(distVector, distVector);
@@ -47,15 +44,15 @@ void main() {
 
         float factor = u_points[i].intensity * invDist2;
 
-        finalColor += u_points[i].color * factor;
-        sumFactor += factor;
+        colorSum += u_points[i].color * factor;
+        factorSum += factor;
     }
 
     // Normalize the final color by the sum factor
-    if (sumFactor > 0.0) {
-        finalColor /= sumFactor;
+    if (factorSum > 0.0) {
+        colorSum /= factorSum;
     }
 
     // Output the final color
-    gl_FragColor = vec4(finalColor, 1.0);
+    gl_FragColor = vec4(colorSum, 1.0);
 }
