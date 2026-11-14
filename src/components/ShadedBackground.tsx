@@ -6,7 +6,7 @@ import { ShadedBackgroundRenderer } from "./render";
 /** Base render method */
 const getTimeInSeconds = () => Date.now() / 1000;
 
-type ShadedBackgroundProps = {};
+type ShadedBackgroundProps = Record<string, never>;
 const ShadedBackground = (props: ShadedBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [ready, setReady] = useState(false);
@@ -54,7 +54,7 @@ const ShadedBackground = (props: ShadedBackgroundProps) => {
   return (
     <canvas
       ref={canvasRef}
-      className={`w-full max-w-full h-full transition-opacity duration-1500 ${ready ? "opacity-100" : "opacity-0"}`}
+      className={`w-full max-w-full h-full transition-opacity duration-1000 ${ready ? "opacity-100" : "opacity-0"}`}
       {...props}
     />
   );

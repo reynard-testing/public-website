@@ -2,7 +2,7 @@
 export function createProgram(
   gl: WebGLRenderingContext,
   vertexSource: string,
-  fragmentSource: string
+  fragmentSource: string,
 ) {
   const vertexShader = gl.createShader(gl.VERTEX_SHADER);
   if (!vertexShader) {
@@ -15,7 +15,7 @@ export function createProgram(
   if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
     console.error(
       "Vertex shader compile error:",
-      gl.getShaderInfoLog(vertexShader)
+      gl.getShaderInfoLog(vertexShader),
     );
   }
 
@@ -28,7 +28,7 @@ export function createProgram(
   if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
     console.error(
       "Fragment shader compile error:",
-      gl.getShaderInfoLog(fragmentShader)
+      gl.getShaderInfoLog(fragmentShader),
     );
   }
 

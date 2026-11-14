@@ -67,7 +67,7 @@ export class ShadedBackgroundRenderer {
     const program = createProgram(
       this.gl,
       vertexShaderSource,
-      fragmentShaderSource
+      fragmentShaderSource,
     );
 
     this.gl.useProgram(program);
@@ -76,7 +76,7 @@ export class ShadedBackgroundRenderer {
     this.positionLocation = this.gl.getAttribLocation(program, "a_position");
     this.resolutionLocation = this.gl.getUniformLocation(
       program,
-      "u_resolution"
+      "u_resolution",
     );
 
     // Define the locations for the point uniforms
@@ -86,11 +86,11 @@ export class ShadedBackgroundRenderer {
         color: this.gl.getUniformLocation(program, `u_points[${i}].color`),
         position: this.gl.getUniformLocation(
           program,
-          `u_points[${i}].position`
+          `u_points[${i}].position`,
         ),
         intensity: this.gl.getUniformLocation(
           program,
-          `u_points[${i}].intensity`
+          `u_points[${i}].intensity`,
         ),
       });
     }
@@ -102,7 +102,7 @@ export class ShadedBackgroundRenderer {
     this.gl.bufferData(
       this.gl.ARRAY_BUFFER,
       new Float32Array(positions),
-      this.gl.STATIC_DRAW
+      this.gl.STATIC_DRAW,
     );
 
     // Set up the attribute pointer
@@ -113,7 +113,7 @@ export class ShadedBackgroundRenderer {
       this.gl.FLOAT,
       false,
       0,
-      0
+      0,
     );
   }
 
@@ -128,7 +128,7 @@ export class ShadedBackgroundRenderer {
     this.gl.uniform2f(
       this.resolutionLocation,
       this.gl.canvas.width,
-      this.gl.canvas.height
+      this.gl.canvas.height,
     );
   }
 
