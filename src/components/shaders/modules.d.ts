@@ -1,0 +1,9 @@
+declare module "*.glsl" {
+  const value: string;
+  export default value;
+}
+
+declare module "*?inline" {
+  const value: string;
+  export default value;
+}
