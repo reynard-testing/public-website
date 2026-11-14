@@ -1,6 +1,7 @@
 import LinkButton from "@/components/LinkButton";
 import ShadedBackground from "@/components/ShadedBackground";
 import GithubIcon from "../../public/icons/github.svg";
+import PaperIcon from "../../public/icons/paper.svg";
 import ReynardLogo from "../../public/logos/reynard-logo.svg";
 
 export default function Home() {
@@ -22,7 +23,7 @@ export default function Home() {
         <div className="text-secondary max-w-sm lg:max-w-md text-center text-lg lg:text-2xl font-medium my-12">
           Automated Fault Injection Testing for Microservice Applications
         </div>
-        <div>
+        <div className="flex flex-wrap justify-center gap-4">
           <LinkButton
             href="https://github.com/reynard-testing/reynard"
             variant="secondary"
@@ -35,6 +36,19 @@ export default function Home() {
             }
           >
             View on GitHub
+          </LinkButton>
+          <LinkButton
+            href="https://dl.acm.org/doi/10.1145/3744916.3773193"
+            variant="secondary"
+            icon={
+              <PaperIcon
+                role="img"
+                aria-label="Paper"
+                className="w-full h-full p-1"
+              />
+            }
+          >
+            Read the paper
           </LinkButton>
         </div>
       </div>
