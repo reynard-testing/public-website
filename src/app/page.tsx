@@ -1,6 +1,7 @@
 import LinkButton from "@/components/LinkButton";
 import ShadedBackground from "@/components/ShadedBackground";
-import Image from "next/image";
+import GithubIcon from "../../public/icons/github.svg";
+import ReynardLogo from "../../public/logos/reynard-logo.svg";
 
 export default function Home() {
   return (
@@ -8,12 +9,10 @@ export default function Home() {
       <div className="flex flex-col items-center h-full justify-center p-4 lg:p-8">
         <div className="flex flex-col items-center gap-2">
           <div>
-            <Image
-              src="./logos/reynard-logo.svg"
-              alt="Reynard Logo"
-              width={128}
-              height={128}
-              className="object-contain text-white w-16 h-16 md:w-24 md:h-24 lg:h-32 lg:w-32 select-none"
+            <ReynardLogo
+              role="img"
+              aria-label="Reynard Logo"
+              className="w-16 h-16 md:w-24 md:h-24 lg:h-32 lg:w-32 select-none"
             />
           </div>
           <div className="text-white font-bold text-3xl md:text-5xl lg:text-6xl tracking-wide">
@@ -28,16 +27,14 @@ export default function Home() {
             href="https://github.com/reynard-testing/reynard"
             variant="secondary"
             icon={
-              <Image
-                src="./icons/github.svg"
-                alt="github"
-                width={24}
-                height={24}
-                className="object-contain w-full h-full text-white"
+              <GithubIcon
+                role="img"
+                aria-label="GitHub"
+                className="w-full h-full"
               />
             }
           >
-            GitHub
+            View on GitHub
           </LinkButton>
         </div>
       </div>

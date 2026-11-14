@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         loaders: ["raw-loader"],
         as: "*.js",
       },
+      "*.svg": {
+        // svgo would strip viewBox and <style> rules from our SVGs, breaking them
+        loaders: [{ loader: "@svgr/webpack", options: { svgo: false } }],
+        as: "*.js",
+      },
     },
   },
 };
